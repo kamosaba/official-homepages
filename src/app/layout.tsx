@@ -30,6 +30,7 @@ export default function RootLayout({
             <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'center', gap: '32px' }}>
               <Link href="/tos">利用規約</Link>
               <Link href="/policy">プライバシーポリシー</Link>
+              <Link href="/status">ステータス</Link>
               <Link href="/news">ニュース</Link>
             </div>
             <p>&copy; 2026 かも鯖コミュニティ</p>
