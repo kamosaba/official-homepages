@@ -17,6 +17,15 @@ GitHub などの Git ホスティングサービスに現在のコードをア�
 - **Build command**: `npm run build`
 - **Build output directory**: `out`
 
+### 4. ローカルでの動作確認
+ビルドされた静的HTMLが正しく動作するか、以下のコマンドで手元で確認できます。
+
+1. `npm run build` を実行
+2. `npm run preview` を実行
+3. ブラウザで表示されたURL（通常 http://localhost:3000 など）にアクセス
+
+これにより、Cloudflare Pages にアップロードされるものと全く同じ「静的HTML」の状態を確認できます。
+
 ---
 
 ### 注意事項
