@@ -6,7 +6,7 @@ export default function NewsPage() {
 
     return (
         <div className="animate-fade-in" style={{ paddingTop: '160px', minHeight: '100vh' }}>
-            <div className="container" style={{ maxWidth: '800px' }}>
+            <div className="container">
                 <h1 style={{ fontSize: '3.5rem', marginBottom: '60px', textAlign: 'center' }}>
                     <span className="gradient-text">News</span>
                 </h1>

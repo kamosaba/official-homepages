@@ -20,7 +20,7 @@ export default async function PostPage(props: { params: Promise<{ id: string }> 
 
     return (
         <article className="animate-fade-in" style={{ paddingTop: '160px', minHeight: '100vh', paddingBottom: '100px' }}>
-            <div className="container" style={{ maxWidth: '800px' }}>
+            <div className="container">
                 <Link href="/news" style={{ opacity: 0.6, fontSize: '0.9rem', display: 'inline-block', marginBottom: '24px' }}>
                     ← ニュース一覧に戻る
                 </Link>
