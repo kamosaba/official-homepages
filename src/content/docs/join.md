@@ -8,19 +8,15 @@ description: "Java版・統合版それぞれの参加方法について解説�
 
 ## 参加情報 <a href="#join-address" id="join-address"></a>
 
-{% code fullWidth="false" %}
-
 ```markup
 play.roomserver.blog
 ```
-
-{% endcode %}
 
 ## 参加方法
 
 1. Minecraftを起動しましょう
 
-<figure><img src="https://578547437-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpNBmVLZLGs6km3ya08CA%2Fuploads%2Fp05hdJ4mmHMgu6oF2wsb%2Fimage.png?alt=media&#x26;token=06040486-1adc-4901-8cf2-584f8d11b4b1" alt=""><figcaption><p>マインクラフトの起動後の画面</p></figcaption></figure>
+<figure><img src="https://cdn.discordapp.com/attachments/1457419436570181794/1462149830502780999/image.png?ex=696d24a5&is=696bd325&hm=5978270259e55bc4638aa9b974430a868620b443e15db4764d44d489c375dada&" alt=""><figcaption><p>マインクラフトの起動後の画面</p></figcaption></figure>
 
 2. マルチプレイを押すと、下記画像のようになります。
 

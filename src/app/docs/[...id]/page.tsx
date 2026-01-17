@@ -1,4 +1,4 @@
-import { getDocData, getAllDocsData } from "@/lib/docs";
+import { getDocData, getAllDocsData, DocData } from "@/lib/docs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DocContent from "@/app/components/DocContent";
@@ -6,13 +6,14 @@ import DocContent from "@/app/components/DocContent";
 export async function generateStaticParams() {
     const docs = getAllDocsData();
     return docs.map((doc) => ({
-        id: doc.id,
+        id: doc.id.split('/'),
     }));
 }
 
-export default async function DocDetailPage(props: { params: Promise<{ id: string }> }) {
+export default async function DocDetailPage(props: { params: Promise<{ id: string[] }> }) {
     const params = await props.params;
-    const doc = await getDocData(params.id);
+    const slug = params.id.join('/');
+    const doc = await getDocData(slug);
 
     if (!doc) {
         notFound();
@@ -20,30 +21,46 @@ export default async function DocDetailPage(props: { params: Promise<{ id: strin
 
     const allDocs = getAllDocsData();
 
+    // Group side docs by category
+    const groupedDocs = allDocs.reduce((acc, d) => {
+        if (!acc[d.category]) acc[d.category] = [];
+        acc[d.category].push(d);
+        return acc;
+    }, {} as Record<string, DocData[]>);
+
     return (
         <div className="animate-fade-in" style={{ paddingTop: '160px', minHeight: '100vh', paddingBottom: '100px' }}>
             <div className="container" style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '48px', alignItems: 'start' }}>
 
                 {/* Sidebar */}
-                <aside className="glass" style={{ padding: '24px', borderRadius: '24px', position: 'sticky', top: '120px' }}>
-                    <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', color: 'var(--accent)' }}>ドキュメント</h3>
-                    <nav style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                        {allDocs.map((item) => (
-                            <Link
-                                key={item.id}
-                                href={`/docs/${item.id}`}
-                                style={{
-                                    fontSize: '0.95rem',
-                                    opacity: item.id === doc.id ? 1 : 0.6,
-                                    color: item.id === doc.id ? 'var(--accent)' : 'inherit',
-                                    fontWeight: item.id === doc.id ? 700 : 400,
-                                    transition: 'var(--transition)'
-                                }}
-                            >
-                                {item.title}
-                            </Link>
+                <aside className="glass" style={{ padding: '24px', borderRadius: '24px', position: 'sticky', top: '120px', maxHeight: 'calc(100vh - 160px)', overflowY: 'auto' }}>
+                    <h3 style={{ fontSize: '1.2rem', marginBottom: '24px', color: 'var(--accent)' }}>ドキュメント</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        {Object.keys(groupedDocs).map(category => (
+                            <div key={category}>
+                                <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: '12px', fontWeight: 700 }}>
+                                    {category === 'General' ? '全般' : category}
+                                </div>
+                                <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px', borderLeft: '1px solid var(--glass-border)', paddingLeft: '12px' }}>
+                                    {groupedDocs[category].map((item) => (
+                                        <Link
+                                            key={item.id}
+                                            href={`/docs/${item.id}`}
+                                            style={{
+                                                fontSize: '0.9rem',
+                                                opacity: item.id === doc.id ? 1 : 0.6,
+                                                color: item.id === doc.id ? 'var(--accent)' : 'inherit',
+                                                fontWeight: item.id === doc.id ? 700 : 400,
+                                                transition: 'var(--transition)'
+                                            }}
+                                        >
+                                            {item.title}
+                                        </Link>
+                                    ))}
+                                </nav>
+                            </div>
                         ))}
-                    </nav>
+                    </div>
                 </aside>
 
                 {/* Content */}
@@ -79,11 +96,10 @@ export default async function DocDetailPage(props: { params: Promise<{ id: strin
                             padding: 24px;
                             border-radius: 12px;
                             margin-bottom: 1.5rem;
-                            overflow-x: auto;
                             border: 1px solid var(--glass-border);
                         }
                         .doc-content code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-                        .doc-content pre code { background: none; padding: 0; }
+                        .doc-content pre code { background: none; padding: 0; white-space: pre-wrap; word-break: break-all; }
                         .doc-content strong { color: var(--accent); }
                         .doc-content img { max-width: 100%; border-radius: 12px; margin: 24px 0; }
                         .doc-content figure { margin: 32px 0; }
@@ -93,3 +109,4 @@ export default async function DocDetailPage(props: { params: Promise<{ id: strin
         </div>
     );
 }
+

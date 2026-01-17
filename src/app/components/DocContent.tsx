@@ -12,6 +12,7 @@ export default function DocContent({ html }: { html: string }) {
 
             // Basic styling for the pre to position the button
             block.style.position = 'relative';
+            block.style.paddingRight = '70px'; // Make space for the button
 
             const button = document.createElement('button');
             button.className = 'copy-button';
@@ -20,10 +21,11 @@ export default function DocContent({ html }: { html: string }) {
             // Button Styles
             Object.assign(button.style, {
                 position: 'absolute',
-                top: '8px',
-                right: '8px',
-                padding: '4px 12px',
-                fontSize: '0.8rem',
+                top: '50%',
+                right: '12px',
+                transform: 'translateY(-50%)',
+                padding: '6px 12px',
+                fontSize: '0.75rem',
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 color: 'var(--accent)',
                 border: '1px solid var(--glass-border)',
@@ -31,7 +33,8 @@ export default function DocContent({ html }: { html: string }) {
                 cursor: 'pointer',
                 backdropFilter: 'blur(4px)',
                 zIndex: '10',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
+                whiteSpace: 'nowrap'
             });
 
             button.addEventListener('mouseenter', () => {

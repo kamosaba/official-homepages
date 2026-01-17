@@ -7,33 +7,58 @@ import html from 'remark-html';
 const docsDirectory = path.join(process.cwd(), 'src/content/docs');
 
 export interface DocData {
-    id: string;
+    id: string; // This will be the relative path without extension
     title: string;
     order: number;
+    category: string;
     contentHtml?: string;
     description?: string;
+}
+
+function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
+    const files = fs.readdirSync(dirPath);
+
+    files.forEach((file) => {
+        if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
+            arrayOfFiles = getAllFiles(path.join(dirPath, file), arrayOfFiles);
+        } else {
+            arrayOfFiles.push(path.join(dirPath, file));
+        }
+    });
+
+    return arrayOfFiles;
 }
 
 export function getAllDocsData(): DocData[] {
     if (!fs.existsSync(docsDirectory)) {
         return [];
     }
-    const fileNames = fs.readdirSync(docsDirectory);
-    const allDocsData = fileNames.map((fileName) => {
-        const id = fileName.replace(/\.md$/, '');
-        const fullPath = path.join(docsDirectory, fileName);
+
+    const filePaths = getAllFiles(docsDirectory).filter(f => f.endsWith('.md'));
+
+    const allDocsData = filePaths.map((fullPath) => {
+        const relativePath = path.relative(docsDirectory, fullPath);
+        const id = relativePath.replace(/\.md$/, '').replace(/\\/g, '/');
+        const category = path.dirname(relativePath).replace(/\\/g, '/');
+
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const matterResult = matter(fileContents);
 
         return {
             id,
+            category: category === '.' ? 'General' : category,
             order: 0,
-            title: id,
+            title: id.split('/').pop() || id,
             ...(matterResult.data as { order?: number; title?: string; description?: string }),
         };
     });
 
-    return allDocsData.sort((a, b) => a.order - b.order);
+    return allDocsData.sort((a, b) => {
+        if (a.category !== b.category) {
+            return a.category.localeCompare(b.category);
+        }
+        return a.order - b.order;
+    });
 }
 
 export async function getDocData(id: string): Promise<DocData | null> {
@@ -43,6 +68,7 @@ export async function getDocData(id: string): Promise<DocData | null> {
     }
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const matterResult = matter(fileContents);
+    const category = path.dirname(id);
 
     const processedContent = await remark()
         .use(html)
@@ -52,8 +78,9 @@ export async function getDocData(id: string): Promise<DocData | null> {
     return {
         id,
         contentHtml,
+        category: category === '.' ? 'General' : category,
         order: 0,
-        title: id,
+        title: id.split('/').pop() || id,
         ...(matterResult.data as { order?: number; title?: string; description?: string }),
     };
 }

@@ -49,6 +49,9 @@ export default async function PostPage(props: { params: Promise<{ id: string }> 
           .glass ul { margin-bottom: 1.5rem; padding-left: 20px; }
           .glass li { margin-bottom: 0.5rem; }
           .glass strong { color: var(--accent); }
+          .glass img { max-width: 100%; border-radius: 12px; margin: 24px 0; height: auto; }
+          .glass figure { margin: 32px 0; }
+          .glass figcaption { text-align: center; font-size: 0.9rem; opacity: 0.6; margin-top: 8px; }
         `}} />
             </div>
         </article>
