@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getSortedPostsData } from "@/lib/news";
 import HeroSlider from "./components/HeroSlider";
+import { siteConfig } from "@/config/site";
 
 export default function Home() {
   const latestNews = getSortedPostsData().slice(0, 3);
@@ -9,16 +10,19 @@ export default function Home() {
   return (
     <div className="animate-fade-in">
       {/* Hero Section */}
-      <section style={{
-        height: '100vh',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        padding: '0 24px'
-      }}>
-        <HeroSlider />
+      <section
+        className="section-fade-bottom"
+        style={{
+          height: '100vh',
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          padding: '0 24px'
+        }}
+      >
+        <HeroSlider interval={siteConfig.heroSlider.interval} />
 
         <div className="container">
           <h1 style={{ fontSize: 'clamp(3rem, 10vw, 6rem)', lineHeight: 1.1, marginBottom: '24px' }}>
@@ -46,7 +50,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section style={{ padding: '100px 0' }}>
+      <section className="section-fade-bottom" style={{ padding: '100px 0' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
           <div className="glass-card">
             <h3 style={{ fontSize: '1.5rem', marginBottom: '16px', color: 'var(--accent)' }}>マルチデバイス対応</h3>
@@ -64,7 +68,7 @@ export default function Home() {
       </section>
 
       {/* Latest News */}
-      <section style={{ padding: '100px 0', background: 'rgba(255,255,255,0.02)' }}>
+      <section className="section-fade-both" style={{ padding: '100px 0', background: 'rgba(255,255,255,0.02)' }}>
         <div className="container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px' }}>
             <h2 style={{ fontSize: '2.5rem' }}>最新のお知らせ</h2>
@@ -84,7 +88,7 @@ export default function Home() {
       </section>
 
       {/* Community CTA */}
-      <section style={{ padding: '120px 0', textAlign: 'center' }}>
+      <section className="section-fade-top" style={{ padding: '120px 0', textAlign: 'center' }}>
         <div className="container">
           <div className="glass" style={{ padding: '80px 40px', borderRadius: '40px' }}>
             <h2 style={{ fontSize: '3rem', marginBottom: '24px' }}>新しい冒険を、<br />ここで始めよう</h2>
@@ -106,3 +110,4 @@ export default function Home() {
     </div>
   );
 }
+
