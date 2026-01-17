@@ -20,7 +20,7 @@ play.roomserver.blog
 
 2. マルチプレイを押すと、下記画像のようになります。
 
-<figure><img src="https://578547437-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpNBmVLZLGs6km3ya08CA%2Fuploads%2FIO7UApRrzFRR3TO5lrCt%2Fimage.png?alt=media&#x26;token=e0a96745-6c6a-4fdf-8cbc-070ebeb9dbb4" alt=""><figcaption></figcaption></figure>
+<img src="https://578547437-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpNBmVLZLGs6km3ya08CA%2Fuploads%2FIO7UApRrzFRR3TO5lrCt%2Fimage.png?alt=media&#x26;token=e0a96745-6c6a-4fdf-8cbc-070ebeb9dbb4" alt="">
 
 3. サーバーを追加/ダイレクト接続を押すと、下記画面になります。 [#join-address](#join-address "mention")に書いてある`play.roomserver.blog` をサーバーアドレスの欄に書きましょう
 
