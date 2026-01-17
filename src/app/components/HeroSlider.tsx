@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 
 const slides = [
@@ -18,23 +18,33 @@ interface HeroSliderProps {
 export default function HeroSlider({ interval = 6000 }: HeroSliderProps) {
     const [current, setCurrent] = useState(0);
 
+    const nextSlide = useCallback(() => {
+        setCurrent((prev) => (prev + 1) % slides.length);
+    }, []);
+
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrent((prev) => (prev + 1) % slides.length);
-        }, interval);
+        const timer = setInterval(nextSlide, interval);
         return () => clearInterval(timer);
-    }, [interval]);
+    }, [interval, nextSlide]);
+
+    const handleClick = () => {
+        nextSlide();
+    };
 
     return (
-        <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: -1,
-            overflow: 'hidden'
-        }}>
+        <div
+            onClick={handleClick}
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                zIndex: -1,
+                overflow: 'hidden',
+                cursor: 'pointer'
+            }}
+        >
             {slides.map((src, index) => (
                 <div
                     key={src}
@@ -43,7 +53,6 @@ export default function HeroSlider({ interval = 6000 }: HeroSliderProps) {
                         inset: 0,
                         opacity: index === current ? 0.6 : 0,
                         transition: 'opacity 2s ease-in-out',
-                        animation: index === current ? `kenburns ${interval + 2000}ms ease-out forwards` : 'none',
                     }}
                 >
                     <Image
@@ -60,13 +69,15 @@ export default function HeroSlider({ interval = 6000 }: HeroSliderProps) {
             <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(to bottom, transparent 80%, var(--background) 100%)'
+                background: 'linear-gradient(to bottom, transparent 80%, var(--background) 100%)',
+                pointerEvents: 'none'
             }} />
             <div style={{
                 position: 'absolute',
                 inset: 0,
                 background: 'radial-gradient(circle at center, transparent 0%, var(--background) 100%)',
-                opacity: 0.4
+                opacity: 0.4,
+                pointerEvents: 'none'
             }} />
         </div>
     );

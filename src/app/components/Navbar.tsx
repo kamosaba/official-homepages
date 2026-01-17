@@ -27,6 +27,7 @@ export default function Navbar() {
             <div className={`nav-links ${isOpen ? 'open' : ''}`}>
                 <Link href="/" onClick={() => setIsOpen(false)} style={{ fontWeight: 600 }}>ホーム</Link>
                 <Link href="/news" onClick={() => setIsOpen(false)} style={{ fontWeight: 600 }}>ニュース</Link>
+                <Link href="/docs" onClick={() => setIsOpen(false)} style={{ fontWeight: 600 }}>ドキュメント</Link>
                 <Link href="/status" onClick={() => setIsOpen(false)} style={{ fontWeight: 600 }}>ステータス</Link>
                 <Link href="/tos" onClick={() => setIsOpen(false)} style={{ fontWeight: 600 }}>利用規約</Link>
                 <Link href="/policy" onClick={() => setIsOpen(false)} style={{ fontWeight: 600 }}>プライバシーポリシー</Link>
