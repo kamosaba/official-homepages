@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getSortedPostsData } from "@/lib/news";
+import HeroSlider from "./components/HeroSlider";
 
 export default function Home() {
   const latestNews = getSortedPostsData().slice(0, 3);
@@ -17,27 +18,7 @@ export default function Home() {
         textAlign: 'center',
         padding: '0 24px'
       }}>
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: -1,
-        }}>
-          <Image
-            src="/images/hero_bg.png"
-            alt="Kamosaba Hero"
-            fill
-            style={{ objectFit: 'cover', opacity: 0.6 }}
-            priority
-          />
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'radial-gradient(circle at center, transparent 0%, var(--background) 100%)'
-          }} />
-        </div>
+        <HeroSlider />
 
         <div className="container">
           <h1 style={{ fontSize: 'clamp(3rem, 10vw, 6rem)', lineHeight: 1.1, marginBottom: '24px' }}>
@@ -89,7 +70,7 @@ export default function Home() {
             <h2 style={{ fontSize: '2.5rem' }}>最新のお知らせ</h2>
             <Link href="/news" style={{ opacity: 0.6, fontSize: '0.9rem' }}>すべて見る →</Link>
           </div>
-          
+
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
             {latestNews.map((post) => (
               <Link key={post.id} href={`/news/${post.id}`} className="glass-card">
