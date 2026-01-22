@@ -38,15 +38,20 @@ export function getAllDocsData(): DocData[] {
 
     const allDocsData = filePaths.map((fullPath) => {
         const relativePath = path.relative(docsDirectory, fullPath);
-        const id = relativePath.replace(/\.md$/, '').replace(/\\/g, '/');
-        const category = path.dirname(relativePath).replace(/\\/g, '/');
+        // Normalize the path and replace backslashes
+        const normalizedPath = relativePath.replace(/\\/g, '/');
+        // The ID should be the undecoded path for file system lookup, 
+        // but for URLs, we need to handle special characters.
+        const id = normalizedPath.replace(/\.md$/, '');
+        const categoryPath = path.dirname(normalizedPath);
+        const category = categoryPath === '.' ? 'General' : categoryPath;
 
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const matterResult = matter(fileContents);
 
         return {
             id,
-            category: category === '.' ? 'General' : category,
+            category,
             order: 0,
             title: id.split('/').pop() || id,
             ...(matterResult.data as { order?: number; title?: string; description?: string }),
@@ -62,13 +67,27 @@ export function getAllDocsData(): DocData[] {
 }
 
 export async function getDocData(id: string): Promise<DocData | null> {
-    const fullPath = path.join(docsDirectory, `${id}.md`);
+    // URLデコード（日本語パス対応）
+    const decodedId = decodeURIComponent(id);
+    const fullPath = path.join(docsDirectory, `${decodedId}.md`);
+
     if (!fs.existsSync(fullPath)) {
+        // デコードなしでも試行
+        const fallbackPath = path.join(docsDirectory, `${id}.md`);
+        if (fs.existsSync(fallbackPath)) {
+            return getDocDataFromFile(fallbackPath, id);
+        }
         return null;
     }
+
+    return getDocDataFromFile(fullPath, decodedId);
+}
+
+async function getDocDataFromFile(fullPath: string, id: string): Promise<DocData> {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const matterResult = matter(fileContents);
-    const category = path.dirname(id);
+    const categoryPath = path.dirname(id);
+    const category = categoryPath === '.' ? 'General' : categoryPath;
 
     const processedContent = await remark()
         .use(html)
@@ -78,7 +97,7 @@ export async function getDocData(id: string): Promise<DocData | null> {
     return {
         id,
         contentHtml,
-        category: category === '.' ? 'General' : category,
+        category,
         order: 0,
         title: id.split('/').pop() || id,
         ...(matterResult.data as { order?: number; title?: string; description?: string }),
