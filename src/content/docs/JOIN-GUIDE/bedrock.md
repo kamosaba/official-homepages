@@ -1,4 +1,5 @@
 ---
+title: 統合版の場合
 description: Switch/PC/PS4, 5/スマホ等の機種の参加方法を書いてあります。
 ---
 
