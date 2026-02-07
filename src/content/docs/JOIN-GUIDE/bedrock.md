@@ -1,32 +1,32 @@
 ---
-title: 統合版の場合
-description: Switch/PC/PS4, 5/スマホ等の機種の参加方法を書いてあります。
+title: "統合版 マインクラフトサーバーへの参加方法"
+description: "フレンド申請機能を利用して「かも鯖」へ参加する手順と注意点について。"
 ---
 
-# 統合版の場合
+# 📱 統合版 参加ガイド
 
-## 参加情報
+「かも鯖」へ統合版（Switch, スマホ, PS4/5, Xbox, Win10等）から参加する方法を解説します。✨
 
-XBOX
+### 📝 参加のステップ
 
-```markup
-mcss3751
-```
+1. **フレンド画面を開く**
+   マインクラフトを起動し、「遊ぶ」→「フレンド」タブを選択します。
 
-## 参加方法
+2. **フレンドを追加する**
+   「フレンドを追加」ボタンを押し、以下のゲーマータグを検索して申請を送ってください。
+   * **ゲーマータグ**: `kamosaba`
 
-1. Minecraftを**起動**します
+3. **サーバーに参加する**
+   フレンド登録が完了すると、フレンド欄にサーバーが表示され、参加できるようになります。🦆
 
-<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+### ⚠️ 注意事項と困ったときは
 
-2. **プレイ**を押して、**右上にあるフレンドのタブ**に行きます。下記の画像になったら、**フレンドを追加** を押してください
+* **フレンド申請ができない場合**
+* **人数が上限（MAX）で入れない場合**
 
-<figure><img src="../.gitbook/assets/スクリーンショット 2025-08-15 145656.png" alt=""><figcaption></figcaption></figure>
+上記のような問題が発生した場合は、放置せず**早急に公式Discord**までお問い合わせください。運営スタッフが対応いたします。📩
 
-2. **ページの一番下のゲーマータグを検索** から、 [#can-jia-qing-bao](bedrock.md#can-jia-qing-bao "mention")にあるmcss3751を検索してフレンドを申請しましょう。
+* **公式Discord**: [https://discord.gg/xRDgzwAhM2](https://discord.gg/xRDgzwAhM2)
 
-<div data-full-width="false"><figure><img src="images/docs/join_step_1.png" alt=""><figcaption></figcaption></figure> <figure><img src="../.gitbook/assets/スクリーンショット 2025-08-15 145736.png" alt=""><figcaption></figcaption></figure></div>
-
-4. **フレンドに、**  `mcss3751` **のワールド**が出てきたら参加しよう！
-
-<figure><img src="images/docs/join_step_1.png" alt=""><figcaption></figcaption></figure>
+---
+皆さまと一緒に遊べるのを楽しみにしています！🌟
